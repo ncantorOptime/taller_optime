@@ -15,12 +15,40 @@ class ProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('codigo')
-            ->add('nombre')
-            ->add('descripcion')
-            ->add('marca')
-            ->add('categoria')
-            ->add('precio')
+            ->add('codigo','text',[
+                'label'=>'Codigo Producto: ',
+                'max_length' => 10,
+                'attr'=>['class'=>'form-control']
+            ])
+            ->add('nombre', 'text',[
+                'label'=>'Codigo Producto: ',
+                'attr'=>['class'=>'form-control']
+            ])
+            ->add('descripcion','textarea',[
+                'label'=>'Codigo Producto: ',
+                'attr'=>['class'=>'form-control']
+            ])
+            ->add('marca','text',[
+                'label'=>'Codigo Producto: ',
+                'max_length' => 10,
+                'attr'=>['class'=>'form-control']
+            ])
+            ->add('categoria','choice',[
+                'label'=>'Categoria Producto',
+                'placeholder'=>'Seleccione Categoria',
+                'attr'=>['class'=>'form-control'],
+                'choices'  => array(
+                    'tecnologia' => 'Tecnologia',
+                    'hogar' => 'Hogar',
+                    'vehiculo' => 'Vehiculo',
+                )
+            ])
+            ->add('precio','money',[
+                'currency'=>'COP',
+                'label'=>'Precio Producto: ',
+                'max_length' => 10,
+                'attr'=>['class'=>'form-control']
+            ])
         ;
     }
     
@@ -30,7 +58,8 @@ class ProductType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'TestBundle\Entity\Product'
+            'data_class' => 'TestBundle\Entity\Product',
+            'attr'=>['class'=>'form-horizontal']
         ));
     }
 }

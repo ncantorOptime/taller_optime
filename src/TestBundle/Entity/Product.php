@@ -3,6 +3,7 @@
 namespace TestBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Product
@@ -25,6 +26,12 @@ class Product
      * @var string
      *
      * @ORM\Column(name="codigo", type="string", length=10, nullable=false)
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 10,
+     *      minMessage = "El código debe tener minimo {{ limit }} caracteres",
+     *      maxMessage = "El código debe tener máximo {{ limit }} caracteres"
+     * )
      */
     private $codigo;
 
@@ -32,6 +39,10 @@ class Product
      * @var string
      *
      * @ORM\Column(name="nombre", type="string", length=255, nullable=false)
+     * @Assert\Length(
+     *      min = 4,
+     *      minMessage = "El Nombre debe tener minimo {{ limit }} caracteres"
+     * )
      */
     private $nombre;
 
@@ -60,6 +71,12 @@ class Product
      * @var float
      *
      * @ORM\Column(name="precio", type="float", precision=10, scale=2, nullable=false)
+     *  @Assert\Range(
+     *      min = 1,
+     *      max = 99999999,
+     *      minMessage = "El precio debe ser mayor a {{ limit }}",
+     *      maxMessage = "El precio debe ser menor a {{ limit }}"
+     * )
      */
     private $precio;
 

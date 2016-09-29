@@ -2,12 +2,44 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Taller{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         {#<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />#}
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="{{ asset('css/bootstrap-theme.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
     </head>
     <body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <nav class="navbar navbar-default navbar-fixed-top">
+                    <div class="container">
+                        <ul class="nav navbar-nav">
+                            <li><a href="{{ path('product_index') }}"><h4>Productos</h4></a></li>
+                        </ul>
+                    </div>
+                </nav>
+                {#{% block name %}{% endblock %}#}
+            </div>
+        </nav>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                {% block name %}{% endblock %}
+            </div>
+        </div>
+
+        <div class="container">
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        </div>
+        {% block javascripts %}
+            <!-- Latest compiled and minified JavaScript -->
+            <script src="{{ asset('js/jquery-3.1.1') }}"></script>
+            <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        {% endblock %}
+
     </body>
 </html>
