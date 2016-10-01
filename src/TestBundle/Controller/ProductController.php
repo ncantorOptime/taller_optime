@@ -22,14 +22,24 @@ class ProductController extends Controller
      * @Route("/", name="product_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $products = $em->getRepository('TestBundle:Product')->findAll();
+        $dql   = "SELECT p FROM TestBundle:Product p";
+        $query = $em->createQuery($dql);
+        //$products = $em->getRepository('TestBundle:Product')->findAll();
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            10/*limit per page*/
+        );
 
         return $this->render('TestBundle:product:index.html.twig', array(
-            'products' => $products,
+            //'products' => $products,
+            'pagination' => $pagination
         ));
     }
 

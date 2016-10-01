@@ -6,20 +6,27 @@
     <div class="btn-group button_group" role="group" aria-label="...">
         <a href="{{ path('product_new') }}" class="btn btn-primary">Crear nuevo <strong>Producto</strong></a>
     </div>
+    <div class="count">
+        <h3>Total de productos: <strong>{{ pagination.getTotalItemCount }}</strong></h3>
+    </div>
+    {# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
     <table  class="table table-hover">
         <thead>
             <tr>
-                <th>Codigo</th>
-                <th>Nombre</th>
-                <th>Descripcion</th>
-                <th>Marca</th>
-                <th>Categoria</th>
-                <th>Precio</th>
-                <th>Actions</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Codigo', 'p.codigo') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Nombre', 'p.nombre') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Descripcion', 'p.descripcion') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Marca', 'p.marca') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Categoria', 'p.categoria') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Precio', 'p.codigo') }}</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-        {% for product in products %}
+        {% for product in pagination %}
             <tr>
                 <td>{{ product.codigo }}</td>
                 <td>{{ product.nombre }}</td>
