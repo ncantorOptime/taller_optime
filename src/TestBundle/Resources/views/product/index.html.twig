@@ -9,7 +9,6 @@
     <table  class="table table-hover">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Codigo</th>
                 <th>Nombre</th>
                 <th>Descripcion</th>
@@ -22,7 +21,6 @@
         <tbody>
         {% for product in products %}
             <tr>
-                <td><a href="{{ path('product_show', { 'id': product.id }) }}">{{ product.id }}</a></td>
                 <td>{{ product.codigo }}</td>
                 <td>{{ product.nombre }}</td>
                 <td>{{ product.descripcion }}</td>
@@ -30,14 +28,20 @@
                 <td>{{ product.categoria }}</td>
                 <td>{{ product.precio }}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('product_show', { 'id': product.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('product_edit', { 'id': product.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Acción
+                            <span class="caret"></span>
+                        </button>
+                        <ul  class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li>
+                                <a href="{{ path('product_show', { 'id': product.id }) }}">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('product_edit', { 'id': product.id }) }}">edit</a>
+                            </li>
+                        </ul>
+                        </div>
                 </td>
             </tr>
         {% endfor %}

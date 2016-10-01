@@ -3,7 +3,7 @@
 {% block body %}
     <h1>Product</h1>
 
-    <table>
+    <table  class="table table-condensed">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -35,18 +35,14 @@
             </tr>
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('product_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('product_edit', { 'id': product.id }) }}">Edit</a>
-        </li>
-        <li>
+    <div class="btn-group button_group" role="group" aria-label="...">
+        <div style="float: left; margin-left: 30px;">
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input type="submit" value="Borrar" class="btn btn-danger">
             {{ form_end(delete_form) }}
-        </li>
-    </ul>
+        </div>
+        <a href="{{ path('product_edit', { 'id': product.id }) }}" class="btn btn-warning">Editar</a>
+        <a href="{{ path('product_index') }}" class="btn btn-primary">Volver</a>
+    </div>
+
 {% endblock %}
