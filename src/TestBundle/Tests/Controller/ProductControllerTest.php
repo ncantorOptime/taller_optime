@@ -3,53 +3,46 @@
 namespace TestBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Validator\Validation;
+use TestBundle\Entity\Product;
 
 class ProductControllerTest extends WebTestCase
 {
-    /*
-    public function testCompleteScenario()
+    private $validator;
+    public function setUp()
     {
-        // Create a new client to browse the application
-        $client = static::createClient();
-
-        // Create a new entry in the database
-        $crawler = $client->request('GET', '/product/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /product/");
-        $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
-
-        // Fill in the form and submit it
-        $form = $crawler->selectButton('Create')->form(array(
-            'testbundle_product[field_name]'  => 'Test',
-            // ... other fields to fill
-        ));
-
-        $client->submit($form);
-        $crawler = $client->followRedirect();
-
-        // Check data in the show view
-        $this->assertGreaterThan(0, $crawler->filter('td:contains("Test")')->count(), 'Missing element td:contains("Test")');
-
-        // Edit the entity
-        $crawler = $client->click($crawler->selectLink('Edit')->link());
-
-        $form = $crawler->selectButton('Update')->form(array(
-            'testbundle_product[field_name]'  => 'Foo',
-            // ... other fields to fill
-        ));
-
-        $client->submit($form);
-        $crawler = $client->followRedirect();
-
-        // Check the element contains an attribute with value equals "Foo"
-        $this->assertGreaterThan(0, $crawler->filter('[value="Foo"]')->count(), 'Missing element [value="Foo"]');
-
-        // Delete the entity
-        $client->submit($crawler->selectButton('Delete')->form());
-        $crawler = $client->followRedirect();
-
-        // Check the entity has been delete on the list
-        $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());
+        $this->validator = Validation::createValidatorBuilder()
+            ->enableAnnotationMapping()
+            ->getValidator();
+    }
+    #Unit Test, validation long word from field Codigo
+    public function testLongWordCodigo()
+    {
+        $products = new Product();
+        $products->setCodigo('111991');
+        $listaErrores = $this->validator->validate($products);
+        if($listaErrores->count()>0)
+        {
+            $error = $listaErrores[0];
+            $this->assertEquals('This value is long validate.', $error->getMessage());
+        }
     }
 
-    */
+    public function testInit()
+    {
+        $this->assertEquals(1, 1, "Probar que 1 es igual a 1");
+    }
+
+    /**
+     * @test
+     */
+    public function redirectProductList()
+    {
+        $client = static::createClient();
+        $client->request('GET', '/product/');
+        echo $client->getResponse()->getStatusCode();
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(),
+            'el Status fue diferente a 200 en la lista de productos'
+        );
+    }
 }

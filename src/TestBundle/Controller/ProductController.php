@@ -34,7 +34,7 @@ class ProductController extends Controller
         $pagination = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
-            10/*limit per page*/
+            $this->getParameter('knp_paginator.page_range')/*limit per page*/
         );
 
         return $this->render('TestBundle:product:index.html.twig', array(
